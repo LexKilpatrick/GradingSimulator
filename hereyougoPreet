@@ -1,0 +1,104 @@
+import java.util.Scanner;
+import java.io.*;
+public class GradeSimulator 
+{
+	public static void main(String args[]) throws IOException
+	{
+		Scanner input = new Scanner (new File("GradeSimulator.txt"));
+		double totalOther = 0;
+		double totalMinor = 0;
+		double totalMajor = 0;
+		int ao = 0;
+		int ami = 0;
+		int amj = 0;
+		while (input.hasNextLine())
+		{
+			String line = input.nextLine();
+			String[] sect = line.split("\\s+");
+			
+		
+				if (sect[sect.length - 3].equals("Other"))
+				{
+					if (!sect[sect.length - 1].equals("N/A"))
+					{
+						if (sect[sect.length - 2].equals("M"))
+						{
+							ao++;
+						}
+						else if (sect[sect.length - 2].equals("X"))
+						{
+						
+						}
+						else {
+							double m = Double.parseDouble(sect[sect.length - 2]);
+							totalOther += m;
+							ao++; }
+					}
+					else if (sect[sect.length - 1].equals("N/A"))
+					{
+						double m = Double.parseDouble(sect[sect.length - 2]);
+						totalOther += m;
+					}
+					
+				}
+				else if (sect[sect.length - 3].equals( "Minor"))
+				{
+					if (!sect[sect.length - 1].equals("N/A"))
+					{
+						if (sect[sect.length - 2].equals("M"))
+						{
+							ami++;
+						}
+						else if (sect[sect.length - 2].equals("X"))
+						{
+					
+						}
+						else {
+							double m = Double.parseDouble(sect[sect.length - 2]);
+							totalMinor += m;
+							ami++; }
+					}
+					else if (sect[sect.length - 1].equals("N/A"))
+					{
+						double m = Double.parseDouble(sect[sect.length - 2]);
+						totalMinor += m;
+					}
+				}
+				else if (sect[sect.length - 3].equals("Major"))
+				{
+					if (!sect[sect.length - 1].equals("N/A"))
+					{
+						if (sect[sect.length - 2].equals("M"))
+						{
+							amj++;
+						}
+						else if (sect[sect.length - 2].equals("X"))
+						{
+							
+						}
+						else 
+						{
+							double m = Double.parseDouble(sect[sect.length - 2]);
+							totalMajor += m;
+							amj++;
+						}
+					}
+					else if (sect[sect.length - 1].equals("N/A"))
+					{
+						double m = Double.parseDouble(sect[sect.length - 2]);
+						totalMajor += m;
+					}
+				}
+			}
+		
+		double average = average(totalOther, totalMinor, totalMajor, ao, ami, amj);
+		System.out.println(average);
+	}
+
+	
+	public static double average (double to, double tm, double tmj, int ao, int ami, int amj)
+	{
+		double average = ((to/ao) * .1) + ((tm/ami) * .3) + ((tmj/amj) * .6);
+		return average;
+	}
+}
